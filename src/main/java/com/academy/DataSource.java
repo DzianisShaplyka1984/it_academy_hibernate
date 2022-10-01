@@ -1,0 +1,27 @@
+package com.academy;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import org.hibernate.Session;
+
+public class DataSource {
+  private static DataSource dataSource = new DataSource();
+
+  private static EntityManagerFactory entityManagerFactory;
+  private DataSource() {
+    entityManagerFactory = Persistence.createEntityManagerFactory("by.it_academy");
+  }
+
+  public static DataSource getInstance() {
+    return dataSource;
+  }
+
+  public EntityManager getEntityManager() {
+    return entityManagerFactory.createEntityManager();
+  }
+
+  public Session getSession() {
+    return getEntityManager().unwrap(Session.class);
+  }
+}
